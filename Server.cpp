@@ -19,82 +19,85 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 
 UINT  MTServerThread(LPVOID pParam)
-{		
-	static bool bRunning = false;
-	if(bRunning)
-		return 0;
-	bRunning = true;
+{
+    // NoSync - disable server
+    return 0;
 
-	LogSendRecieveInfo("Start of ServerThread");
-
-	theApp.m_bExitServerThread = false;
-
-	WSADATA wsaData;
-	sockaddr_in local;
-	int wsaret = WSAStartup(0x101,&wsaData);
-	if(wsaret!=0)
-	{
-		LogSendRecieveInfo("ERROR - int wsaret = WSAStartup(0x101,&wsaData);");
-		return 0;
-	}
-	local.sin_family = AF_INET;
-	CString bindToIpAddress = CGetSetOptions::GetNetworkBindIPAddress();
-	if (bindToIpAddress == _T("*"))
-	{
-		local.sin_addr.s_addr = INADDR_ANY;
-	}
-	else
-	{
-		local.sin_addr.s_addr = inet_addr(CTextConvert::UnicodeToAnsi(bindToIpAddress));
-	}
-	local.sin_port = htons((u_short)g_Opt.m_lPort);
-	theApp.m_sSocket = socket(AF_INET, SOCK_STREAM, 0);
-	if(theApp.m_sSocket == INVALID_SOCKET)
-	{
-		LogSendRecieveInfo("ERROR - theApp.m_sSocket = socket(AF_INET, SOCK_STREAM, 0);");
-		return 0;
-	}
-	if(bind(theApp.m_sSocket,(sockaddr*)&local,sizeof(local))!=0)
-	{
-		LogSendRecieveInfo("ERROR - if(bind(theApp.m_sSocket,(sockaddr*)&local,sizeof(local))!=0)");
-		return 0;
-	}
-	if(listen(theApp.m_sSocket,10)!=0)
-	{
-		LogSendRecieveInfo("ERROR - if(listen(theApp.m_sSocket,10)!=0)");
-		return 0;
-	}
-		
-	sockaddr_in from;
-	int fromlen = sizeof(from);
-
-	while(true)
-	{
-		if(theApp.m_bAppExiting || theApp.m_bExitServerThread)
-			break;
-
-		SOCKET socket = accept(theApp.m_sSocket, (struct sockaddr*)&from, &fromlen);
-
-		SocketParams *pParams = new SocketParams();
-		pParams->m_ip = inet_ntoa(from.sin_addr);
-		pParams->m_socket = socket;
-
-		if (socket != INVALID_SOCKET)
-		{
-			AfxBeginThread(ClientThread, (LPVOID)pParams);
-		}
-		else
-		{
-			delete pParams;
-		}
-	}	
-
-	LogSendRecieveInfo("End of Server Thread");
-
-	bRunning = false;
-	theApp.m_sSocket = INVALID_SOCKET;
-
-	return 0;
+    //static bool bRunning = false;
+    //if(bRunning)
+    //	return 0;
+    //bRunning = true;
+    //
+    //LogSendRecieveInfo("Start of ServerThread");
+    //
+    //theApp.m_bExitServerThread = false;
+    //
+    //WSADATA wsaData;
+    //sockaddr_in local;
+    //int wsaret = WSAStartup(0x101,&wsaData);
+    //if(wsaret!=0)
+    //{
+    //	LogSendRecieveInfo("ERROR - int wsaret = WSAStartup(0x101,&wsaData);");
+    //	return 0;
+    //}
+    //local.sin_family = AF_INET;
+    //CString bindToIpAddress = CGetSetOptions::GetNetworkBindIPAddress();
+    //if (bindToIpAddress == _T("*"))
+    //{
+    //	local.sin_addr.s_addr = INADDR_ANY;
+    //}
+    //else
+    //{
+    //	local.sin_addr.s_addr = inet_addr(CTextConvert::UnicodeToAnsi(bindToIpAddress));
+    //}
+    //local.sin_port = htons((u_short)g_Opt.m_lPort);
+    //theApp.m_sSocket = socket(AF_INET, SOCK_STREAM, 0);
+    //if(theApp.m_sSocket == INVALID_SOCKET)
+    //{
+    //	LogSendRecieveInfo("ERROR - theApp.m_sSocket = socket(AF_INET, SOCK_STREAM, 0);");
+    //	return 0;
+    //}
+    //if(bind(theApp.m_sSocket,(sockaddr*)&local,sizeof(local))!=0)
+    //{
+    //	LogSendRecieveInfo("ERROR - if(bind(theApp.m_sSocket,(sockaddr*)&local,sizeof(local))!=0)");
+    //	return 0;
+    //}
+    //if(listen(theApp.m_sSocket,10)!=0)
+    //{
+    //	LogSendRecieveInfo("ERROR - if(listen(theApp.m_sSocket,10)!=0)");
+    //	return 0;
+    //}
+    //		
+    //sockaddr_in from;
+    //int fromlen = sizeof(from);
+    //
+    //while(true)
+    //{
+    //	if(theApp.m_bAppExiting || theApp.m_bExitServerThread)
+    //		break;
+    //
+    //	SOCKET socket = accept(theApp.m_sSocket, (struct sockaddr*)&from, &fromlen);
+    //
+    //	SocketParams *pParams = new SocketParams();
+    //	pParams->m_ip = inet_ntoa(from.sin_addr);
+    //	pParams->m_socket = socket;
+    //
+    //	if (socket != INVALID_SOCKET)
+    //	{
+    //		AfxBeginThread(ClientThread, (LPVOID)pParams);
+    //	}
+    //	else
+    //	{
+    //		delete pParams;
+    //	}
+    //}	
+    //
+    //LogSendRecieveInfo("End of Server Thread");
+    //
+    //bRunning = false;
+    //theApp.m_sSocket = INVALID_SOCKET;
+    //
+    //return 0;
 }
 
 UINT  ClientThread(LPVOID pParam)

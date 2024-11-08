@@ -1979,12 +1979,16 @@ void CGetSetOptions::SetEditWordWrap(BOOL bSet)
 
 void CGetSetOptions::SetAllowFriends(BOOL val)
 {
-	SetProfileLong("AllowFriends", val);
+    // NoSync - Disable Friends
+    SetProfileLong("AllowFriends", 0);
+	//SetProfileLong("AllowFriends", val);
 }
 
 bool CGetSetOptions::GetAllowFriends()
 {
-	return (GetProfileLong("AllowFriends", TRUE) == TRUE);
+    // NoSync - Disable Friends
+    return false;
+	//return (GetProfileLong("AllowFriends", TRUE) == TRUE);
 }
 
 long CGetSetOptions::GetAutoMaxDelay()

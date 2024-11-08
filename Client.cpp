@@ -24,67 +24,70 @@ static char THIS_FILE[]=__FILE__;
 
 BOOL SendToFriend(CSendToFriendInfo &Info)
 {
-	LogSendRecieveInfo("@@@@@@@@@@@@@@@ - START OF Send To Friend - @@@@@@@@@@@@@@@");
+    // NoSync - Disable send to friend
+    return FALSE;
 
-	if(Info.m_csIP == _T(""))	
-	{
-		Info.m_csErrorText = StrF(_T("ERROR getting ip/host name position - %s"), Info.m_csIP);
-		LogSendRecieveInfo(Info.m_csErrorText);
-		return FALSE;
-	}
-
-	LogSendRecieveInfo(StrF(_T("Sending clip to %s"), Info.m_csIP));
-	CClient client;
-
-	if(client.OpenConnection(Info.m_csIP) == FALSE)
-	{
-		Info.m_csErrorText = StrF(_T("ERROR opening connection to %s"), Info.m_csIP);
-		LogSendRecieveInfo(Info.m_csErrorText);
-		return FALSE;
-	}
-
-	INT_PTR count = Info.m_pClipList->GetCount();
-	int i = -1;
-
-	CClip* pClip;
-	POSITION pos;
-	pos = Info.m_pClipList->GetHeadPosition();
-	while(pos)
-	{
-		pClip = Info.m_pClipList->GetNext(pos);
-		if(pClip == NULL)
-		{
-			ASSERT(FALSE);
-			continue;
-		}
-		i++;
-
-		if(Info.m_pPopup)
-		{
-			Info.m_pPopup->SendToolTipText(StrF(_T("Sending %d of %d"), i+1, count));
-		}
-
-		MSG	msg;
-		while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		LogSendRecieveInfo(StrF(_T("Sending %d of %d clip to %s"), i+1, count, Info.m_csIP));
-
-		if(client.SendItem(pClip, Info.m_manualSend) == FALSE)
-		{
-			Info.m_csErrorText = "ERROR SendItem Failed";
-			LogSendRecieveInfo(Info.m_csErrorText);
-
-			return FALSE;
-		}
-	}
-
-	LogSendRecieveInfo("@@@@@@@@@@@@@@@ - END OF Send To Friend - @@@@@@@@@@@@@@@");
-
-	return TRUE;
+    //LogSendRecieveInfo("@@@@@@@@@@@@@@@ - START OF Send To Friend - @@@@@@@@@@@@@@@");
+    //
+    //if(Info.m_csIP == _T(""))	
+    //{
+    //	Info.m_csErrorText = StrF(_T("ERROR getting ip/host name position - %s"), Info.m_csIP);
+    //	LogSendRecieveInfo(Info.m_csErrorText);
+    //	return FALSE;
+    //}
+    //
+    //LogSendRecieveInfo(StrF(_T("Sending clip to %s"), Info.m_csIP));
+    //CClient client;
+    //
+    //if(client.OpenConnection(Info.m_csIP) == FALSE)
+    //{
+    //	Info.m_csErrorText = StrF(_T("ERROR opening connection to %s"), Info.m_csIP);
+    //	LogSendRecieveInfo(Info.m_csErrorText);
+    //	return FALSE;
+    //}
+    //
+    //INT_PTR count = Info.m_pClipList->GetCount();
+    //int i = -1;
+    //
+    //CClip* pClip;
+    //POSITION pos;
+    //pos = Info.m_pClipList->GetHeadPosition();
+    //while(pos)
+    //{
+    //	pClip = Info.m_pClipList->GetNext(pos);
+    //	if(pClip == NULL)
+    //	{
+    //		ASSERT(FALSE);
+    //		continue;
+    //	}
+    //	i++;
+    //
+    //	if(Info.m_pPopup)
+    //	{
+    //		Info.m_pPopup->SendToolTipText(StrF(_T("Sending %d of %d"), i+1, count));
+    //	}
+    //
+    //	MSG	msg;
+    //	while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+    //	{
+    //		TranslateMessage(&msg);
+    //		DispatchMessage(&msg);
+    //	}
+    //
+    //	LogSendRecieveInfo(StrF(_T("Sending %d of %d clip to %s"), i+1, count, Info.m_csIP));
+    //
+    //	if(client.SendItem(pClip, Info.m_manualSend) == FALSE)
+    //	{
+    //		Info.m_csErrorText = "ERROR SendItem Failed";
+    //		LogSendRecieveInfo(Info.m_csErrorText);
+    //
+    //		return FALSE;
+    //	}
+    //}
+    //
+    //LogSendRecieveInfo("@@@@@@@@@@@@@@@ - END OF Send To Friend - @@@@@@@@@@@@@@@");
+    //
+    //return TRUE;
 }
 
 CClient::CClient()
@@ -116,83 +119,86 @@ BOOL CClient::CloseConnection()
 
 BOOL CClient::OpenConnection(const TCHAR* servername)
 {
-	WSADATA wsaData;
-	unsigned int addr = INADDR_NONE;
-	struct sockaddr_in server;
-	int wsaret=WSAStartup(0x101,&wsaData);
-	if(wsaret)	
-	{
-		LogSendRecieveInfo("ERROR - WSAStartup(0x101,&wsaData)");
-		return FALSE;
-	}
-	
-	m_Connection = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    // NoSync - disabled open connection
+    return FALSE;
 
-	if(m_Connection == INVALID_SOCKET)
-	{
-		LogSendRecieveInfo("ERROR - socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)");
-		
-		m_Connection = NULL;
-		return FALSE;
-	}
-
-	CString parsedServerName = servername;
-	m_connectionPort = g_Opt.m_lPort;
-
-	CTokenizer tokenizer(servername, ":");
-	CString token;
-	int pos = 0;
-	while (tokenizer.Next(token))
-	{
-		if (pos == 0)
-		{
-			parsedServerName = token;
-		}
-		else if (pos == 1)
-		{
-			m_connectionPort = ATOI(token);
-		}
-		pos++;
-	}
-
-	CStringA csServerNameA = CTextConvert::UnicodeToAnsi(parsedServerName);
-
-	//11-5-06 Serge Baranov found that if we are passing in an ip then
-	//don't look the name up using gethostbyname/gethostbyaddr->
-	//on simple networks that don't use DNS these will fail.
-	//So now only lookup the host name if they don't provide an IP.	
-	addr = inet_addr(csServerNameA);
-	if(addr == INADDR_NONE)
-	{
-		struct hostent *hp = gethostbyname(csServerNameA);
-		if(hp != NULL)
-		{
-			addr = *(unsigned int*)hp->h_addr;
-		}
-	}
-
-	if(addr == NULL || addr == INADDR_NONE)
-	{
-		LogSendRecieveInfo("addr == NULL || addr == INADDR_NONE");
-
-		closesocket(m_Connection);
-		m_Connection = NULL;
-		return FALSE;
-	}
-
-	server.sin_addr.s_addr = addr;
-	server.sin_family = AF_INET;
-	server.sin_port = htons((u_short)m_connectionPort);
-	if(connect(m_Connection, (struct sockaddr*)&server, sizeof(server)))
-	{
-		int nWhy = WSAGetLastError();
-		LogSendRecieveInfo(StrF(_T("ERROR if(connect(m_Connection,(struct sockaddr*)&server,sizeof(server))) why = %d"), nWhy));
-		closesocket(m_Connection);
-		m_Connection = NULL;
-		return FALSE;	
-	}
-
-	return TRUE;
+    //WSADATA wsaData;
+    //unsigned int addr = INADDR_NONE;
+    //struct sockaddr_in server;
+    //int wsaret=WSAStartup(0x101,&wsaData);
+    //if(wsaret)	
+    //{
+    //	LogSendRecieveInfo("ERROR - WSAStartup(0x101,&wsaData)");
+    //	return FALSE;
+    //}
+    //	
+    //m_Connection = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    //
+    //if(m_Connection == INVALID_SOCKET)
+    //{
+    //	LogSendRecieveInfo("ERROR - socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)");
+    //		
+    //	m_Connection = NULL;
+    //	return FALSE;
+    //}
+    //
+    //CString parsedServerName = servername;
+    //m_connectionPort = g_Opt.m_lPort;
+    //
+    //CTokenizer tokenizer(servername, ":");
+    //CString token;
+    //int pos = 0;
+    //while (tokenizer.Next(token))
+    //{
+    //	if (pos == 0)
+    //	{
+    //		parsedServerName = token;
+    //	}
+    //	else if (pos == 1)
+    //	{
+    //		m_connectionPort = ATOI(token);
+    //	}
+    //	pos++;
+    //}
+    //
+    //CStringA csServerNameA = CTextConvert::UnicodeToAnsi(parsedServerName);
+    //
+    ////11-5-06 Serge Baranov found that if we are passing in an ip then
+    ////don't look the name up using gethostbyname/gethostbyaddr->
+    ////on simple networks that don't use DNS these will fail.
+    ////So now only lookup the host name if they don't provide an IP.	
+    //addr = inet_addr(csServerNameA);
+    //if(addr == INADDR_NONE)
+    //{
+    //	struct hostent *hp = gethostbyname(csServerNameA);
+    //	if(hp != NULL)
+    //	{
+    //		addr = *(unsigned int*)hp->h_addr;
+    //	}
+    //}
+    //
+    //if(addr == NULL || addr == INADDR_NONE)
+    //{
+    //	LogSendRecieveInfo("addr == NULL || addr == INADDR_NONE");
+    //
+    //	closesocket(m_Connection);
+    //	m_Connection = NULL;
+    //	return FALSE;
+    //}
+    //
+    //server.sin_addr.s_addr = addr;
+    //server.sin_family = AF_INET;
+    //server.sin_port = htons((u_short)m_connectionPort);
+    //if(connect(m_Connection, (struct sockaddr*)&server, sizeof(server)))
+    //{
+    //	int nWhy = WSAGetLastError();
+    //	LogSendRecieveInfo(StrF(_T("ERROR if(connect(m_Connection,(struct sockaddr*)&server,sizeof(server))) why = %d"), nWhy));
+    //	closesocket(m_Connection);
+    //	m_Connection = NULL;
+    //	return FALSE;	
+    //}
+    //
+    //return TRUE;
 }
 
 BOOL CClient::SendItem(CClip *pClip, bool manualSend)
