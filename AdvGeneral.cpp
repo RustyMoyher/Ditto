@@ -186,7 +186,8 @@ BOOL CAdvGeneral::OnInitDialog()
 	CMFCPropertyGridFileProperty* pDiffProp = new CMFCPropertyGridFileProperty(_T("Diff application path"), TRUE, CGetSetOptions::GetDiffApp(), _T("exe"), 0, szDiffFilter, (LPCTSTR)0, SETTING_DIFF_APP);
 	pGroupTest->AddSubItem(pDiffProp);
 
-	AddTrueFalse(pGroupTest, _T("Disable friends"), !CGetSetOptions::GetAllowFriends(), SETTING_DISABLE_FRIENDS);
+    // NoSync - disable friends option setting
+	//AddTrueFalse(pGroupTest, _T("Disable friends"), !CGetSetOptions::GetAllowFriends(), SETTING_DISABLE_FRIENDS);
 
 	AddTrueFalse(pGroupTest, _T("Display icon in system tray"), CGetSetOptions::GetShowIconInSysTray(), SETTING_SHOW_TASKBAR_ICON);
 
@@ -216,8 +217,9 @@ BOOL CAdvGeneral::OnInitDialog()
 
 	AddTrueFalse(pGroupTest, _T("Multi-paste in reverse order"), g_Opt.m_bMultiPasteReverse, SETTING_MULTIPASTE_REVERSE_ORDER);
 
-	pGroupTest->AddSubItem(new CMFCPropertyGridProperty(_T("Network send receive port (default: 23443)"), (long)CGetSetOptions::GetPort(), _T(""), SETTING_SEND_RECV_PORT));
-	pGroupTest->AddSubItem(new CMFCPropertyGridProperty(_T("Network server bind IP (default: *)"), CGetSetOptions::GetNetworkBindIPAddress(), _T(""), SETTING_NETWORK_BIND_IP_ADDRESS));
+    // NoSync - disable friend network settings
+	//pGroupTest->AddSubItem(new CMFCPropertyGridProperty(_T("Network send receive port (default: 23443)"), (long)CGetSetOptions::GetPort(), _T(""), SETTING_SEND_RECV_PORT));
+	//pGroupTest->AddSubItem(new CMFCPropertyGridProperty(_T("Network server bind IP (default: *)"), CGetSetOptions::GetNetworkBindIPAddress(), _T(""), SETTING_NETWORK_BIND_IP_ADDRESS));
 
 	AddTrueFalse(pGroupTest, _T("Open to group same as active exe"), CGetSetOptions::GetOpenToGroupByActiveExe(), SETTING_OPEN_TO_GROUP_AS_ACTIVE_EXE);
 
