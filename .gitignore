@@ -36,3 +36,9 @@
 *.exe
 *.out
 *.app
+
+.vs/
+Release64/
+Release/
+x64/
+Packages/
