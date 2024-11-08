@@ -782,8 +782,11 @@ CAPTION "About Ditto"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     LISTBOX         IDC_LIST,7,16,323,132,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
-    LTEXT           "E-mail Scott Brogden",IDC_HYPER_LINK,7,153,67,8
-    LTEXT           "Ditto Home Page - ditto-cp.sf.net",IDC_STATIC_LINK,7,171,104,8
+    // NoSync - disable links
+    LTEXT           "",IDC_HYPER_LINK,7,153,67,8
+    LTEXT           "",IDC_STATIC_LINK,7,171,104,8
+    //LTEXT           "E-mail Scott Brogden",IDC_HYPER_LINK,7,153,67,8
+    //LTEXT           "Ditto Home Page - ditto-cp.sf.net",IDC_STATIC_LINK,7,171,104,8
 END
 
 IDD_GROUP_NAME DIALOGEX 0, 0, 186, 49

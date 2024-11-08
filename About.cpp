@@ -38,8 +38,9 @@ void CAbout::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAbout)
-	DDX_Control(pDX, IDC_STATIC_LINK, m_Link);
-	DDX_Control(pDX, IDC_HYPER_LINK, m_HyperLink);
+    // NoSync - disable links
+	//DDX_Control(pDX, IDC_STATIC_LINK, m_Link);
+	//DDX_Control(pDX, IDC_HYPER_LINK, m_HyperLink);
 	DDX_Control(pDX, IDC_LIST, m_List);
 	//}}AFX_DATA_MAP
 }
@@ -118,14 +119,15 @@ BOOL CAbout::OnInitDialog()
 	rect.top = rect.bottom + 10;
 	rect.bottom = rect.top + 30;
 	
-	m_HyperLink.MoveWindow(rect);
-
-	m_HyperLink.SetURL(_T("mailto:sabrogden@gmail.com"));
-
-	rect.top = rect.bottom + 5;
-	rect.bottom = rect.top + 5;
-	m_Link.MoveWindow(rect);
-	m_Link.SetURL(_T("https://ditto-cp.sourceforge.io/"));
+    // NoSync - disable links
+	//m_HyperLink.MoveWindow(rect);
+    //
+	//m_HyperLink.SetURL(_T("mailto:sabrogden@gmail.com"));
+    //
+	//rect.top = rect.bottom + 5;
+	//rect.bottom = rect.top + 5;
+	//m_Link.MoveWindow(rect);
+	//m_Link.SetURL(_T("https://ditto-cp.sourceforge.io/"));
 		
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
