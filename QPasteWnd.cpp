@@ -3114,15 +3114,16 @@ bool CQPasteWnd::DoAction(CAccel a)
 	case ActionEnums::EXPORT_TO_TEXT_FILE:
 		ret = DoExportToTextFile();
 		break;
-	case ActionEnums::EXPORT_TO_QR_CODE:
-		ret = DoExportToQRCode();
-		break;
-	case ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE:
-		ret = DoExportToGoogleTranslate();
-		break;
-	case ActionEnums::EXPORT_TO_BITMAP_FILE:
-		ret = DoExportToBitMapFile();
-		break;
+    // NoSync - disable export
+	//case ActionEnums::EXPORT_TO_QR_CODE:
+	//	ret = DoExportToQRCode();
+	//	break;
+	//case ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE:
+	//	ret = DoExportToGoogleTranslate();
+	//	break;
+	//case ActionEnums::EXPORT_TO_BITMAP_FILE:
+	//	ret = DoExportToBitMapFile();
+	//	break;
 	case ActionEnums::SAVE_CURRENT_CLIPBOARD:
 		ret = DoSaveCurrentClipboard();
 		break;
@@ -3171,51 +3172,52 @@ bool CQPasteWnd::DoAction(CAccel a)
 	case ActionEnums::PASTE_ADD_CURRENT_TIME:
 		ret = DoPasteAddCurrentTime();
 		break;
-	case ActionEnums::SEND_TO_FRIEND_1:
-		ret = SendToFriendbyPos(0, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_2:
-		ret = SendToFriendbyPos(1, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_3:
-		ret = SendToFriendbyPos(2, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_4:
-		ret = SendToFriendbyPos(3, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_5:
-		ret = SendToFriendbyPos(4, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_6:
-		ret = SendToFriendbyPos(5, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_7:
-		ret = SendToFriendbyPos(6, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_8:
-		ret = SendToFriendbyPos(7, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_9:
-		ret = SendToFriendbyPos(8, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_10:
-		ret = SendToFriendbyPos(9, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_11:
-		ret = SendToFriendbyPos(10, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_12:
-		ret = SendToFriendbyPos(11, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_13:
-		ret = SendToFriendbyPos(12, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_14:
-		ret = SendToFriendbyPos(13, _T(""));
-		break;
-	case ActionEnums::SEND_TO_FRIEND_15:
-		ret = SendToFriendbyPos(14, _T(""));
-		break;
+    // NoSync - disable friend
+	//case ActionEnums::SEND_TO_FRIEND_1:
+	//	ret = SendToFriendbyPos(0, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_2:
+	//	ret = SendToFriendbyPos(1, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_3:
+	//	ret = SendToFriendbyPos(2, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_4:
+	//	ret = SendToFriendbyPos(3, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_5:
+	//	ret = SendToFriendbyPos(4, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_6:
+	//	ret = SendToFriendbyPos(5, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_7:
+	//	ret = SendToFriendbyPos(6, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_8:
+	//	ret = SendToFriendbyPos(7, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_9:
+	//	ret = SendToFriendbyPos(8, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_10:
+	//	ret = SendToFriendbyPos(9, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_11:
+	//	ret = SendToFriendbyPos(10, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_12:
+	//	ret = SendToFriendbyPos(11, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_13:
+	//	ret = SendToFriendbyPos(12, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_14:
+	//	ret = SendToFriendbyPos(13, _T(""));
+	//	break;
+	//case ActionEnums::SEND_TO_FRIEND_15:
+	//	ret = SendToFriendbyPos(14, _T(""));
+	//	break;
 	case ActionEnums::PASTE_POSITION_1:
 		ret = OpenIndex(0);
 		break;
@@ -3276,9 +3278,10 @@ bool CQPasteWnd::DoAction(CAccel a)
 	case ActionEnums::REPLACE_TOP_STICKY_CLIP:
 		ret = DoActionReplaceTopStickyClip();
 		break;
-	case ActionEnums::PROMPT_SEND_TO_FRIEND:
-		ret = DoActionPromptSendToFriend();
-		break;
+    // NoSync - disable friend
+    //case ActionEnums::PROMPT_SEND_TO_FRIEND:
+	//	ret = DoActionPromptSendToFriend();
+	//	break;
 	case ActionEnums::SAVE_CF_HDROP_FIlE_DATA:
 		ret = DoActionSaveCF_HDROP_FileData();
 		break;
@@ -3345,18 +3348,19 @@ bool CQPasteWnd::DoAction(CAccel a)
 	case ActionEnums::TRANSPARENCY_DECREASE:
 		DoActionDecreaseTransparency();
 		break;
-	case ActionEnums::EMAILTO_BODY:
-		DoActionEmailTo();
-		break;
-	case ActionEnums::GMAIL:
-		DoActionGmail();
-		break;
-	case ActionEnums::EMAILTO_ATTACH_EXPORT:
-		DoActionEmailToAttachExport();
-		break;
-	case ActionEnums::EMAILTO_ATTACH_CONTENT:
-		DoActionEmailToAttachContent();
-		break;
+    // NoSync - disable email
+    //case ActionEnums::EMAILTO_BODY:
+	//	DoActionEmailTo();
+	//	break;
+	//case ActionEnums::GMAIL:
+	//	DoActionGmail();
+	//	break;
+	//case ActionEnums::EMAILTO_ATTACH_EXPORT:
+	//	DoActionEmailToAttachExport();
+	//	break;
+	//case ActionEnums::EMAILTO_ATTACH_CONTENT:
+	//	DoActionEmailToAttachContent();
+	//	break;
 	case ActionEnums::SLUGIFY:
 		DoActionSlugify();
 		break;

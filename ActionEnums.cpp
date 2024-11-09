@@ -122,15 +122,16 @@ CString ActionEnums::EnumDescription(ActionEnumValues value)
 	case EXPORT_TO_TEXT_FILE:
 		val = "Export To Text File";
 		break;
-	case EXPORT_TO_QR_CODE:
-		val = "Export To QR Code";
-		break;
-	case EXPORT_TO_GOOGLE_TRANSLATE:
-		val = "Export To Google Translate";
-		break;
-	case EXPORT_TO_BITMAP_FILE:
-		val = "Export To Image File";
-		break;
+    // NoSync - disable export
+	//case EXPORT_TO_QR_CODE:
+	//	val = "Export To QR Code";
+	//	break;
+	//case EXPORT_TO_GOOGLE_TRANSLATE:
+	//	val = "Export To Google Translate";
+	//	break;
+	//case EXPORT_TO_BITMAP_FILE:
+	//	val = "Export To Image File";
+	//	break;
 	case SAVE_CURRENT_CLIPBOARD:
 		val = "Save Current Clipboard";
 		break;
@@ -170,51 +171,52 @@ CString ActionEnums::EnumDescription(ActionEnumValues value)
 	case PASTE_TYPOGLYCEMIA:
 		val = "Paste Typoglycemia";
 		break;
-	case SEND_TO_FRIEND_1:
-		val = "Send to friend 1";
-		break;
-	case SEND_TO_FRIEND_2:
-		val = "Send to friend 2";
-		break;
-	case SEND_TO_FRIEND_3:
-		val = "Send to friend 3";
-		break;
-	case SEND_TO_FRIEND_4:
-		val = "Send to friend 4";
-		break;
-	case SEND_TO_FRIEND_5:
-		val = "Send to friend 5";
-		break;
-	case SEND_TO_FRIEND_6:
-		val = "Send to friend 6";
-		break;
-	case SEND_TO_FRIEND_7:
-		val = "Send to friend 7";
-		break;
-	case SEND_TO_FRIEND_8:
-		val = "Send to friend 8";
-		break;
-	case SEND_TO_FRIEND_9:
-		val = "Send to friend 9";
-		break;
-	case SEND_TO_FRIEND_10:
-		val = "Send to friend 10";
-		break;
-	case SEND_TO_FRIEND_11:
-		val = "Send to friend 11";
-		break;
-	case SEND_TO_FRIEND_12:
-		val = "Send to friend 12";
-		break;
-	case SEND_TO_FRIEND_13:
-		val = "Send to friend 13";
-		break;
-	case SEND_TO_FRIEND_14:
-		val = "Send to friend 14";
-		break;
-	case SEND_TO_FRIEND_15:
-		val = "Send to friend 15";
-		break;
+    // NoSync - disable friend
+	//case SEND_TO_FRIEND_1:
+	//	val = "Send to friend 1";
+	//	break;
+	//case SEND_TO_FRIEND_2:
+	//	val = "Send to friend 2";
+	//	break;
+	//case SEND_TO_FRIEND_3:
+	//	val = "Send to friend 3";
+	//	break;
+	//case SEND_TO_FRIEND_4:
+	//	val = "Send to friend 4";
+	//	break;
+	//case SEND_TO_FRIEND_5:
+	//	val = "Send to friend 5";
+	//	break;
+	//case SEND_TO_FRIEND_6:
+	//	val = "Send to friend 6";
+	//	break;
+	//case SEND_TO_FRIEND_7:
+	//	val = "Send to friend 7";
+	//	break;
+	//case SEND_TO_FRIEND_8:
+	//	val = "Send to friend 8";
+	//	break;
+	//case SEND_TO_FRIEND_9:
+	//	val = "Send to friend 9";
+	//	break;
+	//case SEND_TO_FRIEND_10:
+	//	val = "Send to friend 10";
+	//	break;
+	//case SEND_TO_FRIEND_11:
+	//	val = "Send to friend 11";
+	//	break;
+	//case SEND_TO_FRIEND_12:
+	//	val = "Send to friend 12";
+	//	break;
+	//case SEND_TO_FRIEND_13:
+	//	val = "Send to friend 13";
+	//	break;
+	//case SEND_TO_FRIEND_14:
+	//	val = "Send to friend 14";
+	//	break;
+	//case SEND_TO_FRIEND_15:
+	//	val = "Send to friend 15";
+	//	break;
 	case PASTE_POSITION_1:
 		val = "Paste Position 1";
 		break;
@@ -278,9 +280,10 @@ CString ActionEnums::EnumDescription(ActionEnumValues value)
 	case REPLACE_TOP_STICKY_CLIP:
 		val = "Replace Top Sticky Clip";
 		break;
-	case PROMPT_SEND_TO_FRIEND:
-		val = "Prompt send to friend";
-		break;
+    // NoSync - disable friend
+	//case PROMPT_SEND_TO_FRIEND:
+	//	val = "Prompt send to friend";
+	//	break;
 	case SAVE_CF_HDROP_FIlE_DATA:
 		val = "Save copied file (cf_hdrop) contents into Ditto";
 		break;
@@ -350,18 +353,19 @@ CString ActionEnums::EnumDescription(ActionEnumValues value)
 	case TRANSPARENCY_DECREASE:
 		val = "Decrease Transparency %";
 		break;
-	case EMAILTO_BODY:
-		val = "EMail, Content In Body";
-		break;
-	case EMAILTO_ATTACH_EXPORT:
-		val = "EMail, Clip Export As Attachment";
-		break;
-	case EMAILTO_ATTACH_CONTENT:
-		val = "EMail, Content As Attachment";
-		break;
-	case GMAIL:
-		val = "Gmail";
-		break;
+    // NoSync - disable email
+    //case EMAILTO_BODY:
+	//	val = "EMail, Content In Body";
+	//	break;
+	//case EMAILTO_ATTACH_EXPORT:
+	//	val = "EMail, Clip Export As Attachment";
+	//	break;
+	//case EMAILTO_ATTACH_CONTENT:
+	//	val = "EMail, Content As Attachment";
+	//	break;
+	//case GMAIL:
+	//	val = "Gmail";
+	//	break;
 	case SLUGIFY:
 		val = "Slugify";
 		break;
