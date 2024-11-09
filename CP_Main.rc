@@ -233,25 +233,6 @@ BEGIN
             MENUITEM "Move to Group",               32840
             MENUITEM "Toggle Last Group Toggle",    ID_GROUPS_TOGGLELASTGROUP
         END
-        POPUP "Send To"
-        BEGIN
-            MENUITEM "Friend One",                  32824
-            MENUITEM "Friend Two",                  32825
-            MENUITEM "Friend Three",                32826
-            MENUITEM "Friend Fore",                 32827
-            MENUITEM "Friend Five",                 32828
-            MENUITEM "Friend Six",                  32829
-            MENUITEM "Friend Seven",                32830
-            MENUITEM "Friend Eight",                32831
-            MENUITEM "Friend Nine",                 32832
-            MENUITEM "Friend Ten",                  32833
-            MENUITEM "Friend Eleven",               32834
-            MENUITEM "Friend Twelve",               32835
-            MENUITEM "Friend Thirteen",             32836
-            MENUITEM "Friend Foreteen",             32837
-            MENUITEM "Friend Fifteen",              32838
-            MENUITEM SEPARATOR
-        END
         MENUITEM "View Full Description",       32793
         POPUP "Special Paste"
         BEGIN
@@ -317,16 +298,8 @@ BEGIN
             MENUITEM "Import Clip(s)",              32855
             MENUITEM "Export Clip(s)",              32853
             MENUITEM SEPARATOR
-            MENUITEM "View as QRCode",              ID_MENU_VIEWASQRCODE
             MENUITEM "Export Clip(s) to Text File(s)", ID_EXPORT_EXPORTTOTEXTFILE
-            MENUITEM "Export Clip(s) to Image File(s)", ID_IMPORT_EXPORTCLIP_BITMAP
-            MENUITEM "Export to Google Translate",  ID_IMPORT_EXPORTTOGOOGLETRANSLATE
             MENUITEM "Import File Contents From CF_HDROP", ID_IMPORT_IMPORTCOPIEDFILE
-            MENUITEM SEPARATOR
-            MENUITEM "EMail, Content In Body",      ID_IMPORT_EMAILTO
-            MENUITEM "EMail, Content As Attachment", ID_IMPORT_EMAIL_CONTENT_ATTACH
-            MENUITEM "EMail, Clip Export As Attachment ", ID_IMPORT_EMAILTOASATTACHMENT
-            MENUITEM "Gmail, Content In Body",      ID_IMPORT_GMAIL
             MENUITEM SEPARATOR
             MENUITEM "Set Drag File Name",          ID_IMPORT_SETDRAGFILENAME
         END
