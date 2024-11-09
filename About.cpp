@@ -65,7 +65,11 @@ BOOL CAbout::OnInitDialog()
 	auto runningVersion = update.GetRunningVersion();
 	CString cs = update.GetVersionString(runningVersion);
 
-	CString csText;
+    // NoSync - version
+    CString csText;
+    csText = "    NoSync - v1";
+    m_List.AddString(csText);
+
 	csText = "    Version " + cs;
 #if _WIN64
 	csText += " 64bit";
@@ -95,6 +99,11 @@ BOOL CAbout::OnInitDialog()
 	m_List.AddString(cs);
 	cs = "            - Kevin Edwards, ingenuus@users.sourceforge.net";
 	m_List.AddString(cs);
+
+    // NoSync - version
+    m_List.AddString(_T(""));
+    cs = "    NoSync - Rusty Moyher";
+    m_List.AddString(cs);
 
 	m_List.AddString(_T(""));
 
