@@ -4275,94 +4275,100 @@ bool CQPasteWnd::DoExportToTextFile()
 
 bool CQPasteWnd::DoExportToQRCode()
 {
-	bool ret = false;
+    // NoSync - disable export
+    return false;
 
-	ARRAY IDs;
-	m_lstHeader.GetSelectionItemData(IDs);
-
-	if (IDs.GetCount() > 0)
-	{
-		int id = IDs[0];
-		CClip clip;
-		if (clip.LoadMainTable(id))
-		{
-			if (clip.LoadFormats(id, true))
-			{
-				CString clipText = clip.GetUnicodeTextFormat();
-
-				CCreateQRCodeImage p;
-				int imageSize = 0;
-				unsigned char* bitmapData = p.CreateImage(clipText, imageSize);
-
-				if (bitmapData != NULL)
-				{
-					QRCodeViewer *viewer = new QRCodeViewer();
-
-					LOGFONT lf;
-					CGetSetOptions::GetFont(lf);
-
-					viewer->CreateEx(this, bitmapData, imageSize, clip.Description(), m_lstHeader.GetRowHeight(), lf);
-					viewer->ShowWindow(SW_SHOW);
-
-					ret = true;
-				}
-			}
-		}
-	}
-
-	return ret;
+    //bool ret = false;
+    //
+    //ARRAY IDs;
+    //m_lstHeader.GetSelectionItemData(IDs);
+    //
+    //if (IDs.GetCount() > 0)
+    //{
+    //	int id = IDs[0];
+    //	CClip clip;
+    //	if (clip.LoadMainTable(id))
+    //	{
+    //		if (clip.LoadFormats(id, true))
+    //		{
+    //			CString clipText = clip.GetUnicodeTextFormat();
+    //
+    //			CCreateQRCodeImage p;
+    //			int imageSize = 0;
+    //			unsigned char* bitmapData = p.CreateImage(clipText, imageSize);
+    //
+    //			if (bitmapData != NULL)
+    //			{
+    //				QRCodeViewer *viewer = new QRCodeViewer();
+    //
+    //				LOGFONT lf;
+    //				CGetSetOptions::GetFont(lf);
+    //
+    //				viewer->CreateEx(this, bitmapData, imageSize, clip.Description(), m_lstHeader.GetRowHeight(), lf);
+    //				viewer->ShowWindow(SW_SHOW);
+    //
+    //				ret = true;
+    //			}
+    //		}
+    //	}
+    //}
+    //
+    //return ret;
 }
 
 bool CQPasteWnd::DoExportToGoogleTranslate()
 {
-	bool ret = false;
-
-	ARRAY IDs;
-	m_lstHeader.GetSelectionItemData(IDs);
-
-	if (IDs.GetCount() > 0)
-	{
-		int id = IDs[0];
-		CClip clip;
-		if (clip.LoadMainTable(id))
-		{
-			if (clip.LoadFormats(id, true))
-			{
-				CString clipText = clip.GetUnicodeTextFormat();
-				if (clipText == _T(""))
-				{
-					CStringA aText = clip.GetCFTextTextFormat();
-					if (aText != _T(""))
-					{
-						clipText = CTextConvert::AnsiToUnicode(aText);
-					}
-				}
-
-				if (clipText != _T(""))
-				{
-					CString clipTextUrlEncoded = InternetEncode(clipText);
-
-					CString url;
-					url.Format(CGetSetOptions::GetTranslateUrl(), clipTextUrlEncoded);
-
-					if (!g_Opt.m_bShowPersistent)
-					{
-						HideQPasteWindow(false, false);
-					}
-					else if (g_Opt.GetAutoHide())
-					{
-						MinMaxWindow(FORCE_MIN);
-					}
-
-					CHyperLink::GotoURL(url, SW_SHOW);
-
-					ret = true;
-				}
-			}
-		}
-	}
-
-	return true;
+    // NoSync - disable export
+    return false;
+    
+    //bool ret = false;
+    //
+    //ARRAY IDs;
+    //m_lstHeader.GetSelectionItemData(IDs);
+    //
+    //if (IDs.GetCount() > 0)
+    //{
+    //	int id = IDs[0];
+    //	CClip clip;
+    //	if (clip.LoadMainTable(id))
+    //	{
+    //		if (clip.LoadFormats(id, true))
+    //		{
+    //			CString clipText = clip.GetUnicodeTextFormat();
+    //			if (clipText == _T(""))
+    //			{
+    //				CStringA aText = clip.GetCFTextTextFormat();
+    //				if (aText != _T(""))
+    //				{
+    //					clipText = CTextConvert::AnsiToUnicode(aText);
+    //				}
+    //			}
+    //
+    //			if (clipText != _T(""))
+    //			{
+    //				CString clipTextUrlEncoded = InternetEncode(clipText);
+    //
+    //				CString url;
+    //				url.Format(CGetSetOptions::GetTranslateUrl(), clipTextUrlEncoded);
+    //
+    //				if (!g_Opt.m_bShowPersistent)
+    //				{
+    //					HideQPasteWindow(false, false);
+    //				}
+    //				else if (g_Opt.GetAutoHide())
+    //				{
+    //					MinMaxWindow(FORCE_MIN);
+    //				}
+    //
+    //				CHyperLink::GotoURL(url, SW_SHOW);
+    //
+    //				ret = true;
+    //			}
+    //		}
+    //	}
+    //}
+    //
+    //return true;
 }
 
 bool CQPasteWnd::DoSaveCurrentClipboard()
@@ -5135,116 +5141,119 @@ bool CQPasteWnd::OnGlobalHotkyes()
 
 bool CQPasteWnd::DoExportToBitMapFile()
 {
-	bool ret = false;
+    // NoSync - disable export
+    return false;
 
-	CClipIDs IDs;
-	INT_PTR lCount = m_lstHeader.GetSelectedCount();
-	if (lCount <= 0)
-	{
-		return ret;
-	}
-
-	m_lstHeader.GetSelectionItemData(IDs);
-	lCount = IDs.GetSize();
-	if (lCount <= 0)
-	{
-		return ret;
-	}
-
-	OPENFILENAME ofn;
-	TCHAR szFile[400];
-	TCHAR szDir[400];
-
-	memset(&szFile, 0, sizeof(szFile));
-	memset(szDir, 0, sizeof(szDir));
-	memset(&ofn, 0, sizeof(ofn));
-
-	CString csInitialDir = CGetSetOptions::GetLastImportDir();
-	STRCPY(szDir, csInitialDir);
-
-	ofn.lStructSize = sizeof(OPENFILENAME);
-	ofn.hwndOwner = m_hWnd;
-	ofn.lpstrFile = szFile;
-	ofn.nMaxFile = sizeof(szFile);
-	ofn.lpstrFilter = _T("PNG (*.png)\0*.png\0BMP (*.bmp)\0*.bmp\0JPEG (*.jpeg)\0*.jpeg");
-	ofn.nFilterIndex = 1;
-	ofn.lpstrFileTitle = NULL;
-	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = szDir;
-	ofn.lpstrDefExt = _T("png");
-	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR | OFN_NOCHANGEDIR;
-
-	m_bHideWnd = false;
-
-	if (GetSaveFileName(&ofn))
-	{
-		CWaitCursor wait;
-
-		using namespace nsPath;
-		CString startingFilePath = ofn.lpstrFile;
-		CPath path(ofn.lpstrFile);
-		CString csPath = path.GetPath();
-		CString csExt = path.GetExtension();
-		path.RemoveExtension();
-		CString csFileName = path.GetName();
-
-		CGetSetOptions::SetLastExportDir(csPath);
-
-		int lastFileCheckId = 1;
-
-		for (int i = 0; i < IDs.GetCount(); i++)
-		{
-			int id = IDs[i];
-
-			CClip toSave;
-			toSave.LoadFormats(id);
-
-			CClipFormat *png = NULL;
-			CClipFormat *bitmap = toSave.m_Formats.FindFormat(CF_DIB);
-			if (bitmap == NULL)
-			{
-				png = toSave.m_Formats.FindFormat(theApp.m_PNG_Format);
-			}
-
-			if (bitmap != NULL ||
-				png != NULL)
-			{
-				CString savePath = startingFilePath;
-				if (IDs.GetCount() > 1 ||
-					FileExists(startingFilePath))
-				{
-					savePath = _T("");
-
-					for (int y = lastFileCheckId; y < 1000000; y++)
-					{
-						CString testFilePath;
-						testFilePath.Format(_T("%s%s_%d.%s"), csPath, csFileName, y, csExt);
-						if (FileExists(testFilePath) == FALSE)
-						{
-							savePath = testFilePath;
-							lastFileCheckId = y+1;
-							break;
-						}
-					}
-				}
-
-				if (savePath != _T(""))
-				{
-					toSave.WriteImageToFile(savePath);
-
-					ret = true;
-				}
-				else
-				{
-					Log(StrF(_T("Failed to find a valid file name for starting path: %s"), startingFilePath));
-				}
-			}
-		}
-	}
-
-	m_bHideWnd = true;
-
-	return ret;
+    //bool ret = false;
+    //
+    //CClipIDs IDs;
+    //INT_PTR lCount = m_lstHeader.GetSelectedCount();
+    //if (lCount <= 0)
+    //{
+    //	return ret;
+    //}
+    //
+    //m_lstHeader.GetSelectionItemData(IDs);
+    //lCount = IDs.GetSize();
+    //if (lCount <= 0)
+    //{
+    //	return ret;
+    //}
+    //
+    //OPENFILENAME ofn;
+    //TCHAR szFile[400];
+    //TCHAR szDir[400];
+    //
+    //memset(&szFile, 0, sizeof(szFile));
+    //memset(szDir, 0, sizeof(szDir));
+    //memset(&ofn, 0, sizeof(ofn));
+    //
+    //CString csInitialDir = CGetSetOptions::GetLastImportDir();
+    //STRCPY(szDir, csInitialDir);
+    //
+    //ofn.lStructSize = sizeof(OPENFILENAME);
+    //ofn.hwndOwner = m_hWnd;
+    //ofn.lpstrFile = szFile;
+    //ofn.nMaxFile = sizeof(szFile);
+    //ofn.lpstrFilter = _T("PNG (*.png)\0*.png\0BMP (*.bmp)\0*.bmp\0JPEG (*.jpeg)\0*.jpeg");
+    //ofn.nFilterIndex = 1;
+    //ofn.lpstrFileTitle = NULL;
+    //ofn.nMaxFileTitle = 0;
+    //ofn.lpstrInitialDir = szDir;
+    //ofn.lpstrDefExt = _T("png");
+    //ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR | OFN_NOCHANGEDIR;
+    //
+    //m_bHideWnd = false;
+    //
+    //if (GetSaveFileName(&ofn))
+    //{
+    //	CWaitCursor wait;
+    //
+    //	using namespace nsPath;
+    //	CString startingFilePath = ofn.lpstrFile;
+    //	CPath path(ofn.lpstrFile);
+    //	CString csPath = path.GetPath();
+    //	CString csExt = path.GetExtension();
+    //	path.RemoveExtension();
+    //	CString csFileName = path.GetName();
+    //
+    //	CGetSetOptions::SetLastExportDir(csPath);
+    //
+    //	int lastFileCheckId = 1;
+    //
+    //	for (int i = 0; i < IDs.GetCount(); i++)
+    //	{
+    //		int id = IDs[i];
+    //
+    //		CClip toSave;
+    //		toSave.LoadFormats(id);
+    //
+    //		CClipFormat *png = NULL;
+    //		CClipFormat *bitmap = toSave.m_Formats.FindFormat(CF_DIB);
+    //		if (bitmap == NULL)
+    //		{
+    //			png = toSave.m_Formats.FindFormat(theApp.m_PNG_Format);
+    //		}
+    //
+    //		if (bitmap != NULL ||
+    //			png != NULL)
+    //		{
+    //			CString savePath = startingFilePath;
+    //			if (IDs.GetCount() > 1 ||
+    //				FileExists(startingFilePath))
+    //			{
+    //				savePath = _T("");
+    //
+    //				for (int y = lastFileCheckId; y < 1000000; y++)
+    //				{
+    //					CString testFilePath;
+    //					testFilePath.Format(_T("%s%s_%d.%s"), csPath, csFileName, y, csExt);
+    //					if (FileExists(testFilePath) == FALSE)
+    //					{
+    //						savePath = testFilePath;
+    //						lastFileCheckId = y+1;
+    //						break;
+    //					}
+    //				}
+    //			}
+    //
+    //			if (savePath != _T(""))
+    //			{
+    //				toSave.WriteImageToFile(savePath);
+    //
+    //				ret = true;
+    //			}
+    //			else
+    //			{
+    //				Log(StrF(_T("Failed to find a valid file name for starting path: %s"), startingFilePath));
+    //			}
+    //		}
+    //	}
+    //}
+    //
+    //m_bHideWnd = true;
+    //
+    //return ret;
 }
 
 LRESULT CQPasteWnd::OnCancelFilter(WPARAM wParam, LPARAM lParam)
@@ -6392,7 +6401,8 @@ void CQPasteWnd::OnQuickoptionsShowintaskbar()
 
 void CQPasteWnd::OnMenuViewasqrcode()
 {
-	DoAction(ActionEnums::EXPORT_TO_QR_CODE);
+    // NoSync - disable export
+	//DoAction(ActionEnums::EXPORT_TO_QR_CODE);
 }
 
 void CQPasteWnd::OnExportExporttotextfile()
@@ -6516,34 +6526,38 @@ void CQPasteWnd::OnMenuRegularexpressionsearch()
 
 void CQPasteWnd::OnImportExporttogoogletranslate()
 {
-	DoAction(ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE);
+    // NoSync - disable export
+	//DoAction(ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE);
 }
 
 void CQPasteWnd::OnUpdateImportExporttogoogletranslate(CCmdUI *pCmdUI)
 {
-	if (!pCmdUI->m_pMenu)
-	{
-		return;
-	}
-
-	UpdateMenuShortCut(pCmdUI, ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE);
+    // NoSync - disable export
+    //if (!pCmdUI->m_pMenu)
+    //{
+    //	return;
+    //}
+    //
+    //UpdateMenuShortCut(pCmdUI, ActionEnums::EXPORT_TO_GOOGLE_TRANSLATE);
 }
 
 
 void CQPasteWnd::OnImportExportclipBitmap()
 {
-	DoAction(ActionEnums::EXPORT_TO_BITMAP_FILE);
+    // NoSync - disable export
+	//DoAction(ActionEnums::EXPORT_TO_BITMAP_FILE);
 }
 
 
 void CQPasteWnd::OnUpdateImportExportclipBitmap(CCmdUI *pCmdUI)
 {
-	if (!pCmdUI->m_pMenu)
-	{
-		return;
-	}
-
-	UpdateMenuShortCut(pCmdUI, ActionEnums::EXPORT_TO_BITMAP_FILE);
+    // NoSync - disable export
+    //if (!pCmdUI->m_pMenu)
+    //{
+    //	return;
+    //}
+    //
+    //UpdateMenuShortCut(pCmdUI, ActionEnums::EXPORT_TO_BITMAP_FILE);
 }
 
 void CQPasteWnd::OnMenuWildcardsearch()
