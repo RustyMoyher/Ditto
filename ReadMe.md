@@ -1,3 +1,8 @@
+Ditto - NoSync
+- This fork disables clipboard syncing and prevents Ditto from opening a network port
+
+===
+
 What is Ditto?
 - Ditto is an extension to the Windows Clipboard. You copy something to the Clipboard and Ditto takes what you copied and stores it in a database to retrieve at a later time.
 
